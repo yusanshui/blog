@@ -1,0 +1,58 @@
+# Tolerations for the rook-ceph-operator to allow it to run on nodes with particular taints
+tolerations:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+
+csi:
+  # The CSI provisioner would be best to start on the same nodes as other ceph daemons. 
+  provisionerTolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+  # Set pluginTolerations and pluginNodeAffinity for plugin daemonset pods.
+  # The CSI plugins need to be started on all the nodes where the clients need to mount the storage.
+  pluginTolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+  rbdProvisionerTolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+  rbdPluginTolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+  cephFSProvisionerTolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+  cephFSPluginTolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+
+## Rook Agent configuration
+## toleration: NoSchedule, PreferNoSchedule or NoExecute
+## tolerationKey: Set this to the specific key of the taint to tolerate
+## tolerations: Array of tolerations in YAML format which will be added to agent deployment
+agent:
+  toleration: NoSchedule
+  tolerationKey: node-role.kubernetes.io/master 
+  tolerations:
+    - key: node-role.kubernetes.io/master 
+      effect: NoSchedule
+
+
+## Rook Discover configuration
+## toleration: NoSchedule, PreferNoSchedule or NoExecute
+## tolerationKey: Set this to the specific key of the taint to tolerate
+## tolerations: Array of tolerations in YAML format which will be added to agent deployment
+## nodeAffinity: Set to labels of the node to match
+discover:
+  toleration: NoSchedule
+  tolerationKey: node-role.kubernetes.io/master
+  tolerations:
+    - key: node-role.kubernetes.io/master
+      effect: NoSchedule
+
+admissionController:
+  # Set tolerations and nodeAffinity for admission controller pod.
+  # The admission controller would be best to start on the same nodes as other ceph daemons.
+  tolerations:
+    - key: node-role.kubernetes.io/master
+      effect: NoSchedule

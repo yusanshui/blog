@@ -1,0 +1,16 @@
+common:
+  setPVOwnerRef: true
+classes:
+  - name: rook-monitor
+    hostDir: /data/local-static-provisioner/rook-monitor
+    volumeMode: Filesystem
+    fsType: ext4
+    namePattern: "*"
+    blockCleanerCommand:
+      - "/scripts/shred.sh"
+      - "2"
+    storageClass: true
+daemonset: 
+  tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
