@@ -18,6 +18,7 @@
   + kind
   + kubectl
   + helm
+* [local cluster for testing](../basic/local.cluster.for.testing.md) have been read and practised
 * [local static provisioner](local.static.provisioner.md) have been read and practised
 * we recommend to use [qemu machine](../../qemu/README.md) because we will modify the devices: /dev/loopX
 
@@ -73,16 +74,18 @@
 
 3. download kind, kubectl and helm binaries according
    to [download kubernetes binary tools](../download.kubernetes.binary.tools.md)
+   
+   * link tools to `./bin`
 
-4. setup kubernetes cluster with one master and two workers by `kind`
-
-   * prepare [kind.cluster.yaml](resources/rook-ceph/kind.cluster.yaml.md)
-
-     * we need three workers for setting the count of rook monitor count to 3
-
-   * ```shell
-     ./kind create cluster --config $(pwd)/kind.cluster.yaml --image kindest/node:v1.22.1
-     ```
+4. setup kubernetes cluster with one master and two workers by `kind` with docker registry
+   
+   * prepare [kind-with-registry.sh](resources/rook-ceph/kind.with.registry.sh.md)
+     * `kind.cluster.yaml` will be created by script.
+     
+   * create cluster
+     * ```shell
+       bash kind-with-registry.sh ./bin/kind ./bin/kubectl
+       ```
 
 5. mount one "virtual disk" into discovery directory at each worker node
 
@@ -91,7 +94,7 @@
    * for monitors
 
      + ```shell
-       for WORKER in "kind-worker" "kind-worker2" "kind-worker3"
+       for WORKER in "kind-worker" "kind-worker2" "kind-control-plane"
        do
            docker exec -it $WORKER bash -c '\
                set -x && HOSTNAME=$(hostname) \
@@ -105,7 +108,7 @@
    * for data sets
 
      + ```shell
-       for WORKER in "kind-worker" "kind-worker2" "kind-worker3"
+       for WORKER in "kind-worker" "kind-worker2"
        do
            docker exec -it $WORKER bash -c '\
                set -x && HOSTNAME=$(hostname) \
@@ -116,6 +119,9 @@
                    && ln -s /dev/mapper/vgtest$MINOR-data$MINOR /data/local-static-provisioner/rook-data/$HOSTNAME-volume-1
            '
        done
+       docker exec -it kind-control-plane bash -c 'set -x && HOSTNAME=$(hostname) \
+                          && mkdir -p /data/local-static-provisioner/rook-data \
+                          && ln -s /dev/mapper/vgtest3-data3 /data/local-static-provisioner/rook-data/$HOSTNAME-volume-1'
        ```
 
 6. setup `local static provisioner` provide one pv from each node, and create a storage class named `rook-local-storage`
@@ -130,7 +136,8 @@
       * ```shell
         git clone --single-branch --branch v2.4.0 https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner.git
         docker pull k8s.gcr.io/sig-storage/local-volume-provisioner:v2.4.0
-        ./kind load docker-image k8s.gcr.io/sig-storage/local-volume-provisioner:v2.4.0
+        docker tag k8s.gcr.io/sig-storage/local-volume-provisioner:v2.4.0 localhost:5000/k8s.gcr.io/sig-storage/local-volume-provisioner:v2.4.0
+        docker push localhost:5000/k8s.gcr.io/sig-storage/local-volume-provisioner:v2.4.0
         ./helm install \
             --create-namespace --namespace storage \
             local-rook-monitor \
@@ -211,7 +218,7 @@
            ./kind load docker-image $IMAGE
        done
        # /dev/loop0 will be needed to setup osd
-       for WORKER in "kind-worker" "kind-worker2" "kind-worker3"
+       for WORKER in "kind-worker" "kind-worker2" "kind-work-plane"
        do
            docker exec -it $WORKER mknod /dev/loop0 b 7 0
            # 3 more loop back devices for rook-ceph
@@ -376,7 +383,7 @@
     * delete dataDirHostPath(`/var/lib/rook`), which is defined by `cluster-on-pvc.yaml`, at each node
 
       + ```shell
-        for WORKER in "kind-worker" "kind-worker2" "kind-worker3"
+        for WORKER in "kind-worker" "kind-worker2" "kind-control-plane"
         do
             docker exec -it $WORKER rm -rf /var/lib/rook
         done
