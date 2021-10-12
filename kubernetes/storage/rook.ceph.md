@@ -184,7 +184,8 @@
 
    * ```shell
      docker pull rook/ceph:v1.7.3
-     ./kind load docker-image rook/ceph:v1.7.3
+     docker tag rook/ceph:v1.7.3 localhost:5000/rook/ceph:v1.7.3
+     docker push localhost:5000/rook/ceph:v1.7.3
      ./helm install \
          --create-namespace --namespace rook-ceph \
          my-rook-ceph-operator \
@@ -215,10 +216,12 @@
            "quay.io/cephcsi/cephcsi:v3.4.0"
        do
            docker pull $IMAGE
-           ./kind load docker-image $IMAGE
+           docker tag $IMAGE localhost:5000/$IMAGE
+           docker push localhost:5000/$IMAGE
        done
+       
        # /dev/loop0 will be needed to setup osd
-       for WORKER in "kind-worker" "kind-worker2" "kind-work-plane"
+       for WORKER in "kind-worker" "kind-worker2" "kind-control-plane"
        do
            docker exec -it $WORKER mknod /dev/loop0 b 7 0
            # 3 more loop back devices for rook-ceph

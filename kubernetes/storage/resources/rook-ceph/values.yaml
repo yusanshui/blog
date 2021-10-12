@@ -1,9 +1,24 @@
+image:
+  repository: localhost:5000/rook/ceph
+  tag: v1.7.3
 # Tolerations for the rook-ceph-operator to allow it to run on nodes with particular taints
 tolerations:
   - effect: NoSchedule
     key: node-role.kubernetes.io/master
 
 csi:
+  cephcsi:
+    image: localhost:5000/quay.io/cephcsi/cephcsi:v3.4.0
+  registrar:
+    image: localhost:5000/k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.2.0
+  resizer:
+    image: localhost:5000/k8s.gcr.io/sig-storage/csi-resizer:v1.2.0
+  snapshotter:
+    image: localhost:5000/k8s.gcr.io/sig-storage/csi-snapshotter:v4.1.1
+  provisioner:
+    image: localhost:5000/k8s.gcr.io/sig-storage/csi-provisioner:v2.2.2
+  attacher:
+    image: localhost:5000/k8s.gcr.io/sig-storage/csi-attacher:v3.2.1
   # The CSI provisioner would be best to start on the same nodes as other ceph daemons. 
   provisionerTolerations:
     - effect: NoSchedule
