@@ -4,3 +4,4 @@
 * [ingress-nginx](ingress.nginx.md)
 * [cert-manager](cert.manager.md)
 * [dashboard](dashboard.md)
+* [nginx-git](nginx.with.git.md)
