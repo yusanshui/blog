@@ -29,7 +29,7 @@
       ./kind create cluster --image kindest/node:v1.22.1 --config=kind.cluster.yaml 
       ```
 3. install nginx
-    * prepare [nginx.git.values.yaml](resources/nginx.git.values.yaml.md)
+    * prepare [nginx git values.yaml](resources/nginx.git.values.yaml.md)
     * ```shell
       ./helm install my-release -f values.yaml bitnami/nginx
       ```
