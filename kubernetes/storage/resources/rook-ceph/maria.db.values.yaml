@@ -1,4 +1,11 @@
+image:
+  registry: localhost:5000
+  repository: docker.io/bitnami/mariadb
+  tag: 10.5.12-debian-10-r32
 primary:
   persistence:
     storageClass: rook-cephfs-01
     size: 468Mi
+    tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule

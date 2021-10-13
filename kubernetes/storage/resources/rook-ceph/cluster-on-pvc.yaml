@@ -5,6 +5,26 @@ metadata:
   namespace: rook-ceph # namespace:cluster
 spec:
   dataDirHostPath: /var/lib/rook
+  placement:
+    all:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+    mgr:
+      nodeAffinity:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+    mon:
+      nodeAffinity:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+    osd:
+      nodeAffinity:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
   mon:
     # Set the number of mons to be started. Generally recommended to be 3.
     # For highest availability, an odd number of mons should be specified.
@@ -63,25 +83,6 @@ spec:
         # as soon as you have more than one OSD per node. The topology spread constraints will
         # give us an even spread on K8s 1.18 or newer.
         placement:
-          all:
-            tolerations:
-              - key: node-role.kubernetes.io/master
-                effect: NoSchedule
-          mgr:
-            nodeAffinity:
-            tolerations:
-              - key: node-role.kubernetes.io/master
-                effect: NoSchedule
-          mon:
-            nodeAffinity:
-            tolerations:
-              - key: node-role.kubernetes.io/master
-                effect: NoSchedule
-          osd:
-            nodeAffinity:
-            tolerations:
-              - key: node-role.kubernetes.io/master
-                effect: NoSchedule
           topologySpreadConstraints:
             - maxSkew: 1
               topologyKey: kubernetes.io/hostname
@@ -108,25 +109,6 @@ spec:
                         values:
                           - rook-ceph-osd-prepare
                   topologyKey: kubernetes.io/hostname
-          all:
-            tolerations:
-              - key: node-role.kubernetes.io/master
-                effect: NoSchedule
-          mgr:
-            nodeAffinity:
-            tolerations:
-              - key: node-role.kubernetes.io/master
-                effect: NoSchedule
-          mon:
-            nodeAffinity:
-            tolerations:
-              - key: node-role.kubernetes.io/master
-                effect: NoSchedule
-          osd:
-            nodeAffinity:
-            tolerations:
-              - key: node-role.kubernetes.io/master
-                effect: NoSchedule
           topologySpreadConstraints:
             - maxSkew: 1
               # IMPORTANT: If you don't have zone labels, change this to another key such as kubernetes.io/hostname

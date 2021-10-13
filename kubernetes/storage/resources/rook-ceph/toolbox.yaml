@@ -18,7 +18,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: rook-ceph-tools
-          image: rook/ceph:v1.7.3
+          image: localhost:5000/rook/ceph:v1.7.3
           command: ["/tini"]
           args: ["-g", "--", "/usr/local/bin/toolbox.sh"]
           imagePullPolicy: IfNotPresent
@@ -52,3 +52,5 @@ spec:
           operator: "Exists"
           effect: "NoExecute"
           tolerationSeconds: 5
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule

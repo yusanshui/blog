@@ -312,7 +312,8 @@
 
       + ```shell
         docker pull docker.io/bitnami/mariadb:10.5.12-debian-10-r32
-        ./kind load docker-image docker.io/bitnami/mariadb:10.5.12-debian-10-r32
+        docker tag docker.io/bitnami/mariadb:10.5.12-debian-10-r32 localhost:5000/docker.io/bitnami/mariadb:10.5.12-debian-10-r32
+        docker push localhost:5000/docker.io/bitnami/mariadb:10.5.12-debian-10-r32
         ./helm install \
             --create-namespace --namespace database \
             maria-db-test \
@@ -341,7 +342,7 @@
       ./kubectl run maria-db-test-mariadb-client \
           --rm --tty -i \
           --restart='Never' \
-          --image docker.io/bitnami/mariadb:10.5.12-debian-10-r32 \
+          --image localhost:5000/docker.io/bitnami/mariadb:10.5.12-debian-10-r32 \
           --namespace database \
           --env MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
           --command -- bash
