@@ -10,5 +10,6 @@
     * [mysql](mysql.md)
     * [vim](vim.md)
     * [mac](mac.md)
+    * [regex](regex.md)
     * [VBoxManage](VBoxManage.md) will be retired
     * [kubernetes](kubernetes.md)  will be retired

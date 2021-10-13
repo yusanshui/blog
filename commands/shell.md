@@ -10,6 +10,15 @@ find /root/database/backup/db.sql.*.gz -mtime +3 -exec rm {} \;
 ssh -o "UserKnownHostsFile /dev/null" root@aliyun.geekcity.tech
 ```
 
+### scp file
+
+```shell
+scp -o "UserKnownHostsFile /dev/null" \
+    /root/package/centos-base.ova \
+    root@<develop_ip>:/root/blackhole/application/flint/build/runtime/download/
+
+```
+
 ### rsync file to remote
 
 ```shell
