@@ -96,6 +96,13 @@ hostnamectl set-hostname develop
 ssh -o "UserKnownHostsFile /dev/null" root@aliyun.geekcity.tech "mkdir -p /root/.ssh && chmod 700 /root/.ssh && echo '$SOME_PUBLIC_KEY' >> /root/.ssh/authorized_keys && chmod 600 /root/.ssh/authorized_keys"
 ```
 
+### generate ssh key
+
+```shell script
+ssh-keygen -t rsa -b 4096 -N "" -f E:/projects/greenplum-docker/build/runtime/keys/id_rsa
+```
+
+
 ### check service logs with journalctl
 
 ```shell

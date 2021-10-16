@@ -1,0 +1,40 @@
+image:
+  registry: localhost:5000/docker.io
+  repository: bitnami/nginx
+  tag: 1.21.3-debian-10-r29
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+extraVolumes:
+  - name: all-in-one
+    projected:
+      sources:
+        - secret:
+            name: ssh-key-secret
+            items:
+              - key: ssh-privatekey
+                path: id_rsa
+                mode: 0600
+        - configMap:
+            name: hosts-configmap
+service:
+  type: ClusterIP
+cloneStaticSiteFromGit:
+  image:
+    registry: localhost:5000
+    repository: docker.io/bitnami/git
+    tag: 2.33.0-debian-10-r53
+  enabled: true
+  repository: git@git.zjvis.org:bigdata/nebula-ce.git
+  branch: main
+  interval: 60
+  extraVolumeMounts:
+    - name: all-in-one
+      mountPath: /root/.ssh/
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  hostname: my.nginx.tech
+  path: /my-nginx-prefix(/|$)(.*)
+  tls: false

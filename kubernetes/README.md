@@ -6,6 +6,7 @@
 * [basic components](basic/README.md)
 * production
     + [installation with network](production/installation.with.network.md)
+    + [install docs on git with ingress nginx](production/install.docs.on.git.with.ingress.nginx.md)
     + storage
         * [storage for bare metal machine](production/storage.for.bare.metal.machine.md)
 * resources

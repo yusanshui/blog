@@ -27,6 +27,12 @@ nodes:
     - containerPort: 32443
       hostPort: 443
       protocol: TCP
+    - containerPort: 32081
+      hostPort: 81
+      protocol: TCP
+    - containerPort: 32444
+      hostPort: 444
+      protocol: TCP
 containerdConfigPatches:
 - |-
   [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:${reg_port}"]
