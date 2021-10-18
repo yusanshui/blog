@@ -27,7 +27,8 @@
     * if you do not hava SSH Key Pair, you could use `ssh-keygen -t rsa` to get it.
     * generate ssh-key-secret, `/path/to/.ssh/id_rsa` and `/path/to/.ssh/id_rsa.pub` are your private key path and public key path 
         + ```shell
-          ./kubectl create secret generic nebula-ce-privatekey-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa
+          ./kubectl create namespace test --dry-run=client -o yaml | kubectl apply -f -
+          ./kubectl -n test create secret generic nebula-ce-privatekey-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa
           ```
 4. install ingress nginx
     * prepare [ingress.nginx.values.yaml](../basic/resources/ingress.nginx.values.yaml.md)
@@ -43,6 +44,7 @@
               ```
         * ```shell
           ./bin/helm install \
+              --create-namespace --namespace basic-components \
               my-ingress-nginx \
               ingress-nginx \
               --version 4.0.5 \
@@ -64,6 +66,7 @@
           ```
     * ```shell
       ./bin/helm install \
+           --create-namespace --namespace test \
           my-nginx \
           nginx \
           --version 9.5.7 \
