@@ -27,13 +27,7 @@
     * if you do not hava SSH Key Pair, you could use `ssh-keygen -t rsa` to get it.
     * generate ssh-key-secret, `/path/to/.ssh/id_rsa` and `/path/to/.ssh/id_rsa.pub` are your private key path and public key path 
         + ```shell
-          ./bin/kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
-          ```
-3. add `know_hosts` with configmap.
-    * prepare [hosts.configmap.yaml](resources/hosts.configmap.yaml.md)
-    * command
-        + ```shell
-          ./bin/kubectl apply -f hosts.configmap.yaml
+          ./kubectl create secret generic nebula-ce-privatekey-secret --from-file=ssh-privatekey=/root/.ssh/nebula_ce_privatekey
           ```
 4. install ingress nginx
     * prepare [ingress.nginx.values.yaml](../basic/resources/ingress.nginx.values.yaml.md)

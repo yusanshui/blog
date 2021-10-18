@@ -1,3 +1,4 @@
+
 image:
   registry: localhost:5000/docker.io
   repository: bitnami/nginx
@@ -5,17 +6,13 @@ image:
   pullPolicy: IfNotPresent
   pullSecrets: []
 extraVolumes:
-  - name: all-in-one
-    projected:
-      sources:
-        - secret:
-            name: ssh-key-secret
-            items:
-              - key: ssh-privatekey
-                path: id_rsa
-                mode: 0600
-        - configMap:
-            name: hosts-configmap
+  - name: nebula-ce-privatekey
+    secret:
+      secretName: nebula-ce-privatekey-secret
+      items:
+        - key: ssh-privatekey
+          path: nebula_ce_privatekey
+          mode: 0600
 service:
   type: ClusterIP
 cloneStaticSiteFromGit:
@@ -28,8 +25,11 @@ cloneStaticSiteFromGit:
   branch: main
   interval: 60
   extraVolumeMounts:
-    - name: all-in-one
+    - name: nebula-ce-privatekey
       mountPath: /root/.ssh/
+  extraEnvVars:
+    - name: GIT_SSH_COMMAND
+      value: "ssh -i /root/.ssh/nebula_ce_privatekey -F /dev/null -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 ingress:
   enabled: true
   annotations:
