@@ -27,7 +27,7 @@
     * if you do not hava SSH Key Pair, you could use `ssh-keygen -t rsa` to get it.
     * generate ssh-key-secret, `/path/to/.ssh/id_rsa` and `/path/to/.ssh/id_rsa.pub` are your private key path and public key path 
         + ```shell
-          ./kubectl create secret generic nebula-ce-privatekey-secret --from-file=ssh-privatekey=/root/.ssh/nebula_ce_privatekey
+          ./kubectl create secret generic nebula-ce-privatekey-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa
           ```
 4. install ingress nginx
     * prepare [ingress.nginx.values.yaml](../basic/resources/ingress.nginx.values.yaml.md)
@@ -54,12 +54,13 @@
     * prepare [nginx.access.docs.values.yaml](resources/nginx.access.docs.values.yaml.md)
     * prepare images
         + ```shell
-          docker pull docker.io/bitnami/nginx:1.21.3-debian-10-r29
-          docker image tag docker.io/bitnami/nginx:1.21.3-debian-10-r29 localhost:5000/docker.io/bitnami/nginx:1.21.3-debian-10-r29
-          docker push localhost:5000/docker.io/bitnami/nginx:1.21.3-debian-10-r29
-          docker pull docker.io/bitnami/git:2.33.0-debian-10-r53
-          docker tag  docker.io/bitnami/git:2.33.0-debian-10-r53 localhost:5000/docker.io/bitnami/git:2.33.0-debian-10-r53
-          docker push localhost:5000/docker.io/bitnami/git:2.33.0-debian-10-r53
+          for IMAGE in "docker.io/bitnami/nginx:1.21.3-debian-10-r29" "docker.io/bitnami/git:2.33.0-debian-10-r53"
+          do
+              LOCAL_IMAGE="localhost:5000/$IMAGE"
+              docker pull $IMAGE
+              docker image tag $IMAGE $LOCAL_IMAGE
+              docker push $LOCAL_IMAGE
+          done
           ```
     * ```shell
       ./bin/helm install \

@@ -1,4 +1,3 @@
-
 image:
   registry: localhost:5000/docker.io
   repository: bitnami/nginx
