@@ -24,7 +24,7 @@
 
 1. install maria-db by helm
 
-    * prepare maria.db.values.yaml
+    * prepare [maria.db.values.yaml](resources/maria.db.values.yaml.md)
 
     * helm install maria-db with default configuration
         + ```shell
@@ -80,14 +80,12 @@
     * use set command to turn on slow log query
         + open slow query log
             ```shell
-            set global general_log=1; 
-            set slow_query_log=1;
-            
+            set global slow_query_log=1;
+            set global slow_query_log_file = "/tmp/slow_query.log"
             ```
         + set long query time
             ```shell
-            set long_query_time=2;
-            
+            set global long_query_time=2;
             ```
     
     * create a slow log
@@ -103,10 +101,22 @@
           ```
     
     * View slow log content
-        ```shell
-        more maria-db-test-mariadb-0-slow.log
-        ```
-    it doesn't work here.
+        + ```shell
+          more /tmp/slow_query.log
+          ```
+        + output like this
+          ```
+          Tcp port: 3306  Unix socket: /opt/bitnami/mariadb/tmp/mysql.sock
+          Time		    Id Command	Argument
+          # Time: 211019  7:10:32
+          # User@Host: root[root] @  [10.244.2.7]
+          # Thread_id: 24  Schema: my_database  QC_hit: No
+          # Query_time: 15.000489  Lock_time: 0.000000  Rows_sent: 1  Rows_examined: 0
+          # Rows_affected: 0  Bytes_sent: 65
+          use my_database;
+          SET timestamp=1634627432;
+          select sleep(15);
+          ```
 
 4. uninstall and clean up
 
@@ -122,7 +132,7 @@
 
 1. install maria-db by helm
     
-    * prepare maria.db.values.with.slow.log.config.yaml
+    * prepare [maria.db.values.with.slow.log.config.yaml](resources/maria.db.values.with.slow.log.config.yaml.md)
 
     * helm install maria-db with  slow log query configuration
         + ```shell
@@ -169,8 +179,8 @@
               +---------------------+----------------------------------+
               | Variable_name       | Value                            |
               +---------------------+----------------------------------+
-              | slow_query_log      | ON                              |
-              | slow_query_log_file | maria-db-test-mariadb-0-slow.log |
+              | slow_query_log      | ON                               |
+              | slow_query_log_file | /tmp/slow_query.log              |
               +---------------------+----------------------------------+
               2 rows in set (0.004 sec)
             ```
@@ -201,15 +211,22 @@
           ```
     
     * View slow log content
-        ```shell
-        more maria-db-test-mariadb-0-slow.log
-        ```
-
-    * output like this:
-      ```shell
-
-      
-      ```
+        + ```shell
+          more /tmp/slow_query.log
+          ```
+        + output like this
+          ```
+          Tcp port: 3306  Unix socket: /opt/bitnami/mariadb/tmp/mysql.sock
+          Time		    Id Command	Argument
+          # Time: 211019  7:10:32
+          # User@Host: root[root] @  [10.244.2.7]
+          # Thread_id: 24  Schema: my_database  QC_hit: No
+          # Query_time: 15.000489  Lock_time: 0.000000  Rows_sent: 1  Rows_examined: 0
+          # Rows_affected: 0  Bytes_sent: 65
+          use my_database;
+          SET timestamp=1634627432;
+          select sleep(15);
+          ```
 
 4. uninstall and clean up
 

@@ -1,0 +1,4 @@
+image:
+  registry: localhost:5000/docker.io
+  repository: bitnami/mariadb
+  tag: 10.5.12-debian-10-r32
