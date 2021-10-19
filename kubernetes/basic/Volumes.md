@@ -71,7 +71,7 @@
       ```
 4.  Get a shell into the Container that is running in your Pod:
     * ```
-      kubectl exec -itconfigmap-demo-pod -- sh
+      kubectl exec -it configmap-demo-pod -- sh
       ```
     * ```
       echo $PLAYER_INITIAL_LIVES

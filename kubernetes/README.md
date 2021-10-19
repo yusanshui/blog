@@ -7,6 +7,7 @@
 * production
     + [installation with network](production/installation.with.network.md)
     + [install docs on git with ingress nginx](production/install.docs.on.git.with.ingress.nginx.md)
+    + [mysql slow log](production/mysql.slow.log.md)
     + storage
         * [storage for bare metal machine](production/storage.for.bare.metal.machine.md)
 * resources
