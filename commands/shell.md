@@ -114,3 +114,7 @@ journalctl -u docker
 ```shell
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ```
+### docstounix
+```shell script
+find /root/blackhole -type f -print0 | xargs -0 dos2unix --
+```

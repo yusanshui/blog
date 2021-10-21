@@ -4,6 +4,7 @@
 * [create local cluster with kind](create.local.cluster.with.kind.md)
 * [storage](storage/README.md)
 * [basic components](basic/README.md)
+* [k8s install script](k8s.Install.Script/install.sh)
 * production
     + [installation with network](production/installation.with.network.md)
     + [install docs on git with ingress nginx](production/install.docs.on.git.with.ingress.nginx.md)
