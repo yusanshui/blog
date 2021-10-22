@@ -4,6 +4,7 @@
 * [docker-landing](docker_landing.md)
 * [multi-architecture](multi-architecture.md)
 * [commands with docker](commands.md)
+* [dockerfile](dockerfile.md)
 * software with docker
     + [phpmyadmin](software/phpmyadmin.md)
     + [nginx](software/nginx.md)
