@@ -21,7 +21,7 @@ reference: https://github.com/jpetazzo/dind
 
 3. Install the magic wraper.
     
-    * [/var/local/bin/wrapdocker](resources/wrapdocker.md)
+    * [/usr/local/bin/wrapdocker](resources/wrapdocker.md)
     * ```
       chmod +x /usr/local/bin/wrapdocker
       ```
