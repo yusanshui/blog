@@ -10,7 +10,7 @@ reference: https://github.com/jpetazzo/dind
 1. run centos8 cotainer
 
     * ```shell script
-      docker run --rm -d --name dind-test centos:centos8.3.2011 bash -c "sleep 3d"
+      docker run --rm --privileged -d --name dind-test centos:centos8.3.2011 bash -c "sleep 3d"
       ```
 
 2. enter shell
