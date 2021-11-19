@@ -44,7 +44,7 @@ and small.
 
 #### The CADRE DATA ARCHITECHTURE
 
-* ![architecture](img/figure1.png)
+* ![architecture](../img/figure1.png)
 
 * a federated authentication and authorization system
 
@@ -54,11 +54,11 @@ and small.
 
 * focus on data pipeline, statis two data processing scenarios
   
-    + ![data pipline](img/figure2.png)
+    + ![data pipline](../img/figure2.png)
     
     + Efficient and easy to use data query and analytical services for end users.
       
-        * ![data query](img/table1.png)
+        * ![data query](../img/table1.png)
         *  "US8" and "US14, designed a set of user query interfaces
         * "US15", unified under the property graph data model
         * "WoS02", casting different entities and relationships as collection of nodes connected by edges
@@ -90,10 +90,10 @@ and small.
 
 * benchmarking datasets
 
-  ![dataset](img/table2.png)
+  ![dataset](../img/table2.png)
 
 * benchmarking queries
-![benchmarking queries](img/table3.png)
+![benchmarking queries](../img/table3.png)
 
 * Performance comparsion
 
@@ -105,9 +105,9 @@ and small.
   + ingestion
   + query performance
   
-  + ![setting](img/table4.png)
+  + ![setting](../img/table4.png)
 
-  + ![result](img/table5.png)
+  + ![result](../img/table5.png)
 
 * Chose JanusGraph 
 

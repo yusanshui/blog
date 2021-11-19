@@ -1,3 +1,0 @@
-# papers 
-
-* [ceph](ceph.md)
