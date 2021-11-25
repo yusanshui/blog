@@ -14,3 +14,6 @@
 * ![2.png](resources/certificate_expires/2.png)
 
 4. 打开需要访问的网站，在页面空白处单击，输入 `thisisunsafe`,即可访问
+
+5. 再次访问出现问题，可以点开高级，继续前往访问页面
+* ![3.png](resources/certificate_expires/3.png)
