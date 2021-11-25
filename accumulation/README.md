@@ -6,3 +6,4 @@
 * Papers
     + [CADRE](papers/CADRE.md)
     + [CEPH](papers/CEPH.md)
+    + [ArkDB](papers/ArkDB.md)

@@ -67,6 +67,7 @@ ACM SIGMOD 数据管理国际会议 在数据库领域具有最高学术地位�
 
 #### ENGINE ARCHITECTURE
 
+* ![engine](../resources/ArkDB/2.png)
 * DeltaPageStream and BasePageStream together with PageMappingTable form an on-storage Bw-tree, a B+ tree variant on append-only storage with delta pages 
 * ExtentUsageTable, is consulted during garbage collection of DeltaPageStream and BasePageStream
 
@@ -84,6 +85,7 @@ ACM SIGMOD 数据管理国际会议 在数据库领域具有最高学术地位�
 * System Transaction Concurrency
     + Concurrent changes to the B+ tree structure are coordinated by page level locking
 * Basic Page Mapping Operations
+    + ![operations](../resources/ArkDB/3.png)
 * Conflict Reconciliation
 * Tree Structural Changes
     +  With page level locking, multiple tree structural changes can run in parallel.
@@ -120,10 +122,10 @@ ACM SIGMOD 数据管理国际会议 在数据库领域具有最高学术地位�
 * delta page cache implements the FIFO replacement policy
 
 #### PERFORMANCE EV ALUATION
+
 designed to work on Pangu but can also use a local file system for testing and evaluation.
 
 ##### Experimental Design
-
 
 ##### Improvements over Bw-tree Design
 

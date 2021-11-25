@@ -1,5 +1,6 @@
 ### CEPH
 * A Scalable, High-Performance Distributed File System
+
 #### authors
 
 Sage Weil (born March 17, 1978) is the founder and chief architect of Ceph, a distributed storage platform
@@ -18,6 +19,7 @@ OSDI是计算机学界最顶级学术会议之一,操作系统领域的世界顶
 
 how to realize scalability、 high performance, reliability and availability simultaneously 
 
+* ![architecture](../resources/CEPH/1.png)
 * decoupled data and metadata
 * dynamic distributed metadata management
 * reliable autonomic distributed object storage.
@@ -32,16 +34,21 @@ how to realize scalability、 high performance, reliability and availability sim
 
 * Metadata Storage
 * Dynamic Subtree Partitioning
+    + ![dynamic maps subtree](../resources/CEPH/2.png)
 * Traffic Control
+   
 
 #### Distributed Object Storage
 
 * Data Distribution with CRUSH
+    + ![CRUSH](../resources/CEPH/3.png)
 * Replication
 * Data Safety
+    + ![REPLICA](../resources/CEPH/4.png)
 * Failure Detection
 * Recovery and Cluster Updates
 * Object Storage with EBOFS
+    ext3 interface and performance to be poorly suited for object workloads
 
 #### Performance and Scalability Evaluation
 
@@ -61,6 +68,13 @@ Although many file systems attempt to meet the need that  place a heavy load on 
 
 * OceanStore and Farsite - cannot provide high-performance access to a small set of files by tens of thousands of cooperating clients 
 * GPFS  and StorageTank - are limited by their use of block-based disks and their metadata distribution architecture.
+
+#### Experiences
+
+CRUSH was able to deliver the necessary scalability, flexibility, and reliability.
+EBOFS was surprisingly quick to develop in user-space, offered very satisfying performance, and exposed an interface perfectly suited to our requirements.
+MDS load balancer to overall scalability
+client interface posed a greater challenge than anticipated
 
 #### Future Work
 
