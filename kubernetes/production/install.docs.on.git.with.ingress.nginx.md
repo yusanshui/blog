@@ -25,6 +25,11 @@
 1. [create local cluster for testing](../basic/local.cluster.for.testing.md)
 2. create ssh-key-secret
     * if you do not hava SSH Key Pair, you could use `ssh-keygen -t rsa` to get it.
+        + ```
+           mkdir -p ssh-keys/ \
+               && ssh-keygen -t rsa -b 4096 -N "" -f ssh-keys/id_rsa
+           kubectl create secret generic git-ssh-key-secret --from-file=ssh-keys/
+          ```
     * generate ssh-key-secret, `/path/to/.ssh/id_rsa` and `/path/to/.ssh/id_rsa.pub` are your private key path and public key path 
         + ```shell
           ./kubectl create namespace test --dry-run=client -o yaml | kubectl apply -f -
