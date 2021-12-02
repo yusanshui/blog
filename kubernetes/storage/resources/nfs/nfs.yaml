@@ -1,0 +1,5 @@
+image:
+  repository: localhost:5000/k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner
+  tag: v4.0.2
+  pullPolicy: IfNotPresent
+imagePullSecrets: []
