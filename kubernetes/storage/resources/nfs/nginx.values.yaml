@@ -34,7 +34,7 @@ sidecars:
   - name: busybox
     image: localhost:5000/busybox:latest
     imagePullPolicy: Always
-    command: ['sh', '-c', 'while true;do echo hello docker;sleep 1000;done']
+    command: ['sh', '-c', 'tail -f /etc/host']
     volumeMounts:
       - name: nfs-pv
         mountPath: "/root/data"

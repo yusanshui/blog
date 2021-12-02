@@ -83,8 +83,8 @@
 5. create pvc
     * [pvc.yaml](resources/nfs/pvc.yaml.md)
     * ```
-      ./bin/kubectl create namespace nfs --dry-run=client -o yaml | kubectl apply -f -
-      ./bin/kubectl apply -f pvc.yaml
+      ./bin/kubectl get namespace application \
+          || ./bin/kubectl create namespace application
       ```
     * see pvc
        + ```
@@ -93,9 +93,7 @@
     * add rescources in the directory
        + ```
          cd /root/data/nfs/data/nfs-nfs-pvc-pvc-e5dd0b8d-5b16-408d-96ec-caac4c3df367
-         cat >> yumiao << EOF
-         zjvis
-         EOF
+         echo zjvis > yumiao
          ```
       
 6. create nginx service to access your resouces under nfs server exported path
