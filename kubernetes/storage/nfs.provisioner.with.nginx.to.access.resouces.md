@@ -36,24 +36,20 @@
           && mount -t nfs4 -v localhost:/ $(pwd)/mnt/nfs
       ```
 
-4. prepare images
-    * ```shell
-      for IMAGE in "busybox:latest" \
-          "k8s.gcr.io/ingress-nginx/controller:v1.0.3" \
-          "k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.0" \
-          "k8s.gcr.io/defaultbackend-amd64:1.5" \
-          "k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2" \
-          "docker.io/bitnami/nginx:1.21.3-debian-10-r29"
-      do
-          LOCAL_IMAGE="localhost:5000/$IMAGE"
-          docker pull $IMAGE
-          docker image tag $IMAGE $LOCAL_IMAGE
-          docker push $LOCAL_IMAGE
-      done
-      ```
-
-5. install ingress nginx
+4. install ingress nginx
     * prepare [ingress.nginx.yaml](resources/nfs/ingress.nginx.yaml.md)
+    * prepare images
+        * ```shell
+          for IMAGE in "k8s.gcr.io/ingress-nginx/controller:v1.0.3" \
+              "k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.0" \
+              "k8s.gcr.io/defaultbackend-amd64:1.5" 
+          do
+              LOCAL_IMAGE="localhost:5000/$IMAGE"
+              docker pull $IMAGE
+              docker image tag $IMAGE $LOCAL_IMAGE
+              docker push $LOCAL_IMAGE
+          done
+          ```
     * ```
       ./bin/helm install \
           --create-namespace --namespace basic-components \
@@ -67,6 +63,16 @@
 
 6. use provisioner to provide nfs storage class, `<IP>` is your nfs4 server address, `<path>` is your path exported
      * prepare [nfs.yaml](resources/nfs/nfs.yaml.md)
+     * prepare images
+         * ```shell
+           for IMAGE in "k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2"
+           do
+               LOCAL_IMAGE="localhost:5000/$IMAGE"
+               docker pull $IMAGE
+               docker image tag $IMAGE $LOCAL_IMAGE
+               docker push $LOCAL_IMAGE
+           done
+           ```
      * ```
        ./bin/helm install \
            --create-namespace --namespace storage \
@@ -101,6 +107,17 @@
       
 6. create nginx service to access your resouces under nfs server exported path
     * prepare [nginx.values.yaml](resources/nfs/nginx.values.yaml.md)
+    * prepare images
+        * ```shell
+          for IMAGE in "busybox:latest" \
+              "docker.io/bitnami/nginx:1.21.3-debian-10-r29"
+          do
+              LOCAL_IMAGE="localhost:5000/$IMAGE"
+              docker pull $IMAGE
+              docker image tag $IMAGE $LOCAL_IMAGE
+              docker push $LOCAL_IMAGE
+          done
+          ```
     * ```
       ./bin/helm install \
           --create-namespace --namespace nfs \
