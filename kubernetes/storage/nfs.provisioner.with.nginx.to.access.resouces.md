@@ -127,7 +127,9 @@
           --values nginx.values.yaml \
           --atomic
       ```
-    * then you can access resouces 
+    * then you can access resources 
         + ```
-          curl -OL localhost:8080/resources/yumiao
+          export POD_NAME=$(./bin/kubectl -n nfs get pod -l "app.kubernetes.io/instance=my-nginx " -o jsonpath="{.items[0].metadata.name}")
+          ./bin/kubectl -n nfs exec -it $POD_NAME -c busybox -- sh -c 'echo this is a test > /root/data/file-created-by-busybox'
+          curl localhost:8080/resources
           ```
