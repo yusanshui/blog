@@ -37,10 +37,13 @@
       ```
 
 4. prepare images
-    * ```
-      ```
     * ```shell
-      for IMAGE in "busybox:latest" "k8s.gcr.io/ingress-nginx/controller:v1.0.3" "k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.0" "k8s.gcr.io/defaultbackend-amd64:1.5" "k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2" "docker.io/bitnami/nginx:1.21.3-debian-10-r29"
+      for IMAGE in "busybox:latest" \
+          "k8s.gcr.io/ingress-nginx/controller:v1.0.3" \
+          "k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.0" \
+          "k8s.gcr.io/defaultbackend-amd64:1.5" \
+          "k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2" \
+          "docker.io/bitnami/nginx:1.21.3-debian-10-r29"
       do
           LOCAL_IMAGE="localhost:5000/$IMAGE"
           docker pull $IMAGE
