@@ -92,8 +92,9 @@
 5. create pvc
     * [pvc.yaml](resources/nfs/pvc.yaml.md)
     * ```
-      ./bin/kubectl get namespace application \
-          || ./bin/kubectl create namespace application
+      ./bin/kubectl get namespace nfs \
+          || ./bin/kubectl create namespace nfs
+      ./bin/kubectl apply -f pvc.yaml
       ```
     * see pvc
        + ```
