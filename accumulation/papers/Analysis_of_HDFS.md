@@ -114,7 +114,7 @@ Build a new trace framework, HTFS(Hadoop Trace File System) to collect these det
 
 * ![Combined-logging architecture.](../resources/Analysis_of_HDFS/19.png)
 * ![Combined logging results.](../resources/Analysis_of_HDFS/20.png)
-*Conclusion:Merging multiple HBase logs on a dedicated disk reduces logging latencies by a factor of 6. However,putrequests do not currently block until data is flushed to disks, and the performance impact on foregroundreadsis negligible. Thus,theadditionalcomplexity of combined logging is likely not worthwhile given the current durability guarantees. However, combined logging could enable HBase, at little performance cost, to give the additional guarantee that data is on disk before aputreturns. Providing such a guarantee would make logging a foreground activity.
+*Conclusion:Merging multiple HBase logs on a dedicated disk reduces logging latencies by a factor of 6. However,putrequests do not currently block until data is flushed to disks, and the performance impact on foreground reads is negligible. Thus,theadditionalcomplexity of combined logging is likely not worthwhile given the current durability guarantees. However, combined logging could enable HBase, at little performance cost, to give the additional guarantee that data is on disk before aputreturns. Providing such a guarantee would make logging a foreground activity.
 
 #### Related Work
 
