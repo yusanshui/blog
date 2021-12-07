@@ -34,7 +34,7 @@ sidecars:
   - name: busybox
     image: localhost:5000/busybox:latest
     imagePullPolicy: Always
-    command: ['sh', '-c', 'tail -f /etc/host']
+    command: ['sh', '-c', 'tail -f /etc/hosts']
     volumeMounts:
       - name: nfs-pv
         mountPath: "/root/data"

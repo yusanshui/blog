@@ -7,4 +7,5 @@
     + [CADRE](papers/CADRE.md)
     + [CEPH](papers/CEPH.md)
     + [ArkDB](papers/ArkDB.md)
+    + [Analysis_of_HDFS](papers/Analysis_of_HDFS.md)
 * [certificate_expires](certificate_expires.md)
