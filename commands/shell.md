@@ -118,3 +118,99 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ```shell script
 find /root/blackhole -type f -print0 | xargs -0 dos2unix --
 ```
+
+### shutdown
+```
+shutdown -h now
+shutdown -h 10
+shutdown -h 20:25
+init 0
+halt
+poweroff
+```
+
+### reboot
+```
+reboot 
+shutdown -r now
+shutdown -r 10
+init 6
+```
+
+### forget root password  进入紧急模式
+```
+ro -> rw init=/sysroot/bin/sh
+按住 ctrl+x 进入紧急模式
+chroot /sysroot # chroot用来切换系统 /sysroot就是原始系统
+passwd
+LANG=en # 乱码切换
+passwd
+touch /.autorelabl # 让SELinux生效
+按住ctrl+D 输入reboot重启
+```
+
+### grup损坏，使用rescue模式
+```
+使用iso镜像进入
+Troubleshooting
+Rescue a Centos Linux system
+```
+### 虚拟机网络模式
+```
+桥接模式：虚拟机和物理机连一个网络，如手机和计算机连一个wifi
+NAT模式：物理机相当于路由器，兼容性好，物理机的网络环境发生变化时，虚拟机的网络不受影响
+仅主机模式：相当于一根网线连接物理机和虚拟机
+```
+
+### 网卡和地址设置
+```
+ip add # 查看ip地址
+vi /etc/sysconfig/net-scripts/ifcfg-ens33
+nmcli c reload ens33
+nmcli d reapply ens33
+```
+
+### 退出终端
+```
+exit
+ctrl + D
+```
+
+### 暂停当前进程
+```
+ctrl + z
+fg # 恢复
+```
+
+### swap 作用和大小设置
+```
+功能就是在内存不够的情况下，操作系统先把内存中暂时不用的数据，存到硬盘的交换空间，腾出内存来让别的程序运行，和Windows的虚拟内存（pagefile.sys）的作用是一样的。
+swap 大小为为内存的两倍
+```
+
+### 关闭SELinux
+```
+# 暂时关闭
+setenforce 0
+# 永久关闭
+vi /etc/selinux/config
+SELINUX=disabled
+重启
+```
+
+### 远程登录条件
+```
+/root/.ssh 权限为700
+SELinux 要关闭
+/root/.ssh/authorized_keys
+yum -y install openssh-clients
+ssh-copy-id # 完成密钥认证，下次不要输入密码
+```
+
+### 查看当前用户
+```
+who # 查看所有用户
+who am i # 复杂显示
+whoami # 正常显示
+```
+
