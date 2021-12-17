@@ -6,7 +6,8 @@
       apiVersion: v1
       kind: ServiceAccount
       metadata:
-        name: build-robot
+        name: docs-nginx-operator
+        namespace: operator
       EOF
       ```
 
@@ -16,9 +17,10 @@
       apiVersion: v1
       kind: Secret
       metadata:
-        name: build-robot-secret
+        name: docs-nginx-operator-token
+        namespace: ServiceAccount
         annotations:
-          kubernetes.io/service-account.name: build-robot
+          kubernetes.io/service-account.name: docs-nginx-operator
       type: kubernetes.io/service-account-token
       EOF
       ```
