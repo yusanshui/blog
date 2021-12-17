@@ -23,7 +23,7 @@ defaultBackend:
   enabled: false
   name: defaultbackend
   image:
-    registry: k8s.gcr.io
+    registry: localhost:5000/k8s.gcr.io
     image: defaultbackend-amd64
     tag: "1.5"
     pullPolicy: IfNotPresent
