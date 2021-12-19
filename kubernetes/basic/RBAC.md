@@ -1,6 +1,11 @@
 ### use kubectl with ServiceAccount
 
-1. create a serviceAccount
+1. create namespace
+    * ```
+      kubectl get namespace operator \
+          || kubectl create namespace operator
+      ```
+2. create a serviceAccount
     * ```
       kubectl create -f - <<EOF
       apiVersion: v1
@@ -18,7 +23,7 @@
       kind: Secret
       metadata:
         name: docs-nginx-operator-token
-        namespace: ServiceAccount
+        namespace: operator
         annotations:
           kubernetes.io/service-account.name: docs-nginx-operator
       type: kubernetes.io/service-account-token
@@ -47,7 +52,7 @@
       # roleBinding.yaml
       apiVersion: rbac.authorization.k8s.io/v1
       # 此角色绑定允许 "jane" 读取 "default" 名字空间中的 Pods
-      kind: RoleBinding
+      kind: RoleBinding 
       metadata:
         name: read-pods
         namespace: operator
