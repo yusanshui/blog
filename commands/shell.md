@@ -214,3 +214,13 @@ who am i # 复杂显示
 whoami # 正常显示
 ```
 
+### umask
+```
+可以在/etc/bashrc 中修改umask的值，root默认022，一般使用者002  0022中第一个零表示八进制
+```
+
+### 文件的特殊属性
+```
+chattr
+lsattr
+```

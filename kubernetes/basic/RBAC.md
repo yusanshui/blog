@@ -44,16 +44,16 @@
       rules:
         - apiGroups: [""]
           resources: ["nodes", "namespaces", "configmaps", "endpoints", "persistentvolumes", "persistentvolumeclaims", "secrets", "services", "pods"]
-          verbs: ["get", "list"]
+          verbs: ["get", "list", "watch"]
         - apiGroups: ["apps"]
           resources: ["statefulsets", "replicasets", "deployments", "daemonsets"]
-          verbs: ["get", "list"]
+          verbs: ["get", "list", "watch"]
         - apiGroups: ["batch"]
           resources: ["cronjobs", "jobs"]
-          verbs: ["get", "list"]
+          verbs: ["get", "list", "watch"]
         - apiGroups: ["storage.k8s.io"]
           resources: ["storageclasses"]
-          verbs: ["get", "list"]
+          verbs: ["get", "list", "watch"]
       EOF
       ```
 5. create role_binding
@@ -74,7 +74,7 @@
         apiGroup: "rbac.authorization.k8s.io"
       ---
       apiVersion: rbac.authorization.k8s.io/v1
-      kind: RoleBinding
+      kind: ClusterRoleBinding
       metadata:
         name: read
         namespace: operator
@@ -84,7 +84,7 @@
           namespace: operator
       roleRef:
         kind: ClusterRole
-        name: reader
+        name: read
         apiGroup: "rbac.authorization.k8s.io"
       ```
     * ```
@@ -116,9 +116,9 @@
               ports:
               - containerPort: 80
           ``` 
-         + ```
-           kubectl apply -f test.pod.yaml
-           ```
+        + ```
+          kubectl apply -f test.pod.yaml --kubeconfig=/root/test.config
+          ```
     * successed in namespace operator
         + ```
           # test pod yaml
@@ -133,11 +133,11 @@
               ports:
               - containerPort: 80
           ``` 
-         + ```
-           kubectl -n operator apply -f test.pod.yaml
-           ```
-         + ```
-           # get pod in default namespace
-           kubectl get pod
-           ```
+        + ```
+          kubectl -n operator apply -f test.pod.yaml --kubeconfig=/root/test.config
+          ```
+        + ```
+          # get pod in default namespace
+          kubectl get pod --kubeconfig=/root/test.config
+          ```
       
