@@ -262,3 +262,4 @@ http://www.tpc.org/tpc_documents_current_versions/current_specifications5.asp
           删除倒数第二行的分号
           ```
 14. 使用SQL进行测试
+[TPC-H语句](https://www.cnblogs.com/zhjh256/p/15008420.html)
