@@ -101,12 +101,12 @@
     * ```
       docker network create --subnet 172.18.0.0/16 devops
       docker run \
-          --name demo_springboot 
-          --rm \ 
+          --name demo_springboot \
+          --rm \
           --network devops \
           --ip 172.18.0.10 \
           -p 8889:8889 \
-          -v ${SPRINGBOOT_PATH}/target/classes/application.yml:/app/application.yaml 
+          -v ${SPRINGBOOT_PATH}/target/classes/application.yml:/app/application.yaml \
           -d localhost:5000/devops.demo/java-springboot:${APPLICATION_VERSION}
       ```
 2. install `vue` in docker
@@ -174,5 +174,5 @@
       curl http://localhost:8889/swagger-ui.html#/
       ```
     * ```
-      http://localhost:8080/api/swagger-ui.html#
+      curl http://localhost:8080/api/swagger-ui.html#
       ```
